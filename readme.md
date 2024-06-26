@@ -4,7 +4,7 @@
 
 
 <h3 align="center">
-  Desafio Backend do PicPay
+  Desafio Backend do Backend Brasil
 </h3>
 
 <p align="center">
@@ -15,7 +15,7 @@
 
 </p>
 
-Resolução do desafio proposto pelo repositorio Backend Brasil, confira detalhes [neste link](https://github.com/backend-br/desafios/blob/master/points-of-interest/PROBLEM.md).
+Resolução do desafio proposto pelo repositório Backend Brasil, confira detalhes [neste link](https://github.com/backend-br/desafios/blob/master/points-of-interest/PROBLEM.md).
 
 
 # Sumário
@@ -125,7 +125,6 @@ Header - Location - http://localhost:8080/points/8
     "y": 15,
     "name": "Escritório"
 }
-
 ```
 
 ### 2 - Listar todos os POIs
