@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.dto.PointDTO;
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.dto.PointName;
-import br.com.erichiroshi.desafio_backend_br_points_of_interest.dto.PointRef;
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.entity.Point;
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.service.PointService;
 
@@ -41,10 +41,13 @@ public class PointController {
 		return ResponseEntity.ok(listDTO);
 	}
 
-	@PostMapping("/find")
-	public ResponseEntity<List<PointName>> insert(@RequestBody PointRef pointRef) {
-		List<Point> list = service.findAllProximo(pointRef);
-		List<PointName> listDTO = list.stream().map(x -> new PointName(x.getName())).toList();
+	@PostMapping("/near-me")
+	public ResponseEntity<List<PointName>> findByRef(@RequestParam("x") int x,
+													@RequestParam("y") int y,
+													@RequestParam("dmax") int dmax) {
+		
+		List<Point> list = service.findAllProximo(x, y, dmax);
+		List<PointName> listDTO = list.stream().map(point -> new PointName(point.getName())).toList();
 		return ResponseEntity.ok(listDTO);
 	}
 }
