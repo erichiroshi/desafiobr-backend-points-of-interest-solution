@@ -1,8 +1,10 @@
 package br.com.erichiroshi.desafio_backend_br_points_of_interest.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +30,12 @@ public class PointController {
 		Point point = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(point.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<PointDTO>> findAll() {
+		List<Point> list = service.findAll();
+		List<PointDTO> listDTO = list.stream().map(x -> new PointDTO(x.getX(), x.getY(), x.getName())).toList();
+		return ResponseEntity.ok(listDTO);
 	}
 }

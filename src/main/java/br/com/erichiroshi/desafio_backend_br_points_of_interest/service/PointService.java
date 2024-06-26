@@ -1,5 +1,7 @@
 package br.com.erichiroshi.desafio_backend_br_points_of_interest.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.dto.PointDTO;
@@ -17,5 +19,9 @@ public class PointService {
 
 	public Point insert(PointDTO dto) {
 		return repository.save(dto.toPoint());
+	}
+
+	public List<Point> findAll() {
+		return repository.findAll();
 	}
 }
