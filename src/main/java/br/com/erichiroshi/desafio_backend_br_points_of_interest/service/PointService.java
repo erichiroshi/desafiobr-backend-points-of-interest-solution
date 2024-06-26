@@ -1,6 +1,5 @@
 package br.com.erichiroshi.desafio_backend_br_points_of_interest.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -27,21 +26,14 @@ public class PointService {
 	}
 
 	public List<Point> findAllProximo(int x, int y, int dmax) {
-		List<Point> all = findAll();
-		List<Point> listAllProximo = new ArrayList<>();
 
-		for (Point point : all) {
-			int andaX = point.getX() - x;
-			int andaY = point.getY() - y;
-			if (andaX < 0)
-				andaX *= -1;
-			if (andaY < 0)
-				andaY *= -1;
+		List<Point> allBySquare = repository.findAllBySquare(x - dmax, x + dmax, y - dmax, y + dmax);
 
-			if (dmax >= (andaX + andaY))
-				listAllProximo.add(point);
-		}
-
-		return listAllProximo;
+		return allBySquare.stream().filter(point -> distAB(point.getX(), point.getY(), x, y) <= dmax).toList();
 	}
+
+	private double distAB(int xA, int yA, int xB, int yB) {
+		return Math.sqrt(Math.pow((double) xA - xB, 2) + Math.pow((double) yA - yB, 2));
+	}
+
 }

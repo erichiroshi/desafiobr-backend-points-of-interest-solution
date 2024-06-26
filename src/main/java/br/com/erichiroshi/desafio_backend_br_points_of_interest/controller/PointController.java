@@ -41,7 +41,7 @@ public class PointController {
 		return ResponseEntity.ok(listDTO);
 	}
 
-	@PostMapping("/near-me")
+	@GetMapping("/near-me")
 	public ResponseEntity<List<PointName>> findByRef(@RequestParam("x") int x,
 													@RequestParam("y") int y,
 													@RequestParam("dmax") int dmax) {
