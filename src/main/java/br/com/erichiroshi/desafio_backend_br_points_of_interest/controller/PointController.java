@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.dto.PointDTO;
+import br.com.erichiroshi.desafio_backend_br_points_of_interest.dto.PointName;
+import br.com.erichiroshi.desafio_backend_br_points_of_interest.dto.PointRef;
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.entity.Point;
 import br.com.erichiroshi.desafio_backend_br_points_of_interest.service.PointService;
 
@@ -36,6 +38,13 @@ public class PointController {
 	public ResponseEntity<List<PointDTO>> findAll() {
 		List<Point> list = service.findAll();
 		List<PointDTO> listDTO = list.stream().map(x -> new PointDTO(x.getX(), x.getY(), x.getName())).toList();
+		return ResponseEntity.ok(listDTO);
+	}
+
+	@PostMapping("/find")
+	public ResponseEntity<List<PointName>> insert(@RequestBody PointRef pointRef) {
+		List<Point> list = service.findAllProximo(pointRef);
+		List<PointName> listDTO = list.stream().map(x -> new PointName(x.getName())).toList();
 		return ResponseEntity.ok(listDTO);
 	}
 }
